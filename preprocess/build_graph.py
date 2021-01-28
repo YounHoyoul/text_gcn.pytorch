@@ -17,8 +17,7 @@ from utils.utils import loadWord2Vec, clean_str
 from tqdm.notebook import tqdm
 
 import time, sys
-from IPython.display import clear_output
-
+from IPython.display import clear_output, display
 
 def update_progress(progress):
     bar_length = 20
@@ -31,9 +30,9 @@ def update_progress(progress):
     if progress >= 1:
         progress = 1
     block = int(round(bar_length * progress))
-    clear_output(wait = True)
+    clear_output(wait=True)
     text = "Progress: [{0}] {1:.1f}%".format( "#" * block + "-" * (bar_length - block), progress * 100)
-    print(text)
+    display(text)
 
 if len(sys.argv) != 2:
 	sys.exit("Use: python build_graph.py <dataset>")
