@@ -20,7 +20,7 @@ import time, sys
 from IPython.display import clear_output, display
 
 def update_progress(progress):
-    bar_length = 20
+    bar_length = 30
     if isinstance(progress, int):
         progress = float(progress)
     if not isinstance(progress, float):
@@ -30,9 +30,8 @@ def update_progress(progress):
     if progress >= 1:
         progress = 1
     block = int(round(bar_length * progress))
-    clear_output(wait=True)
-    text = "Progress: [{0}] {1:.1f}%".format( "#" * block + "-" * (bar_length - block), progress * 100)
-    display(text)
+    clear_output()
+    display("Progress: [{0}] {1:.1f}%".format( "#" * block + "-" * (bar_length - block), progress * 100))
 
 if len(sys.argv) != 2:
 	sys.exit("Use: python build_graph.py <dataset>")
