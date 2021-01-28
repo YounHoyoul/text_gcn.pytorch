@@ -16,6 +16,25 @@ from utils.utils import loadWord2Vec, clean_str
 
 from tqdm.notebook import tqdm
 
+import time, sys
+from IPython.display import clear_output
+
+
+def update_progress(progress):
+    bar_length = 20
+    if isinstance(progress, int):
+        progress = float(progress)
+    if not isinstance(progress, float):
+        progress = 0
+    if progress < 0:
+        progress = 0
+    if progress >= 1:
+        progress = 1
+    block = int(round(bar_length * progress))
+    clear_output(wait = True)
+    text = "Progress: [{0}] {1:.1f}%".format( "#" * block + "-" * (bar_length - block), progress * 100)
+    print(text)
+
 if len(sys.argv) != 2:
 	sys.exit("Use: python build_graph.py <dataset>")
 
@@ -407,7 +426,9 @@ for window in windows:
         appeared.add(window[i])
 
 word_pair_count = {}
-for window in tqdm(windows):
+total_windows = len(windows)
+for index, window in enumerate(windows):
+    update_progress(index/total_windows)
     for i in range(1, len(window)):
         for j in range(0, i):
             word_i = window[i]
