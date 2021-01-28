@@ -14,7 +14,7 @@ import sys
 sys.path.append('../')
 from utils.utils import loadWord2Vec, clean_str
 
-
+from tqdm.notebook import tqdm
 
 if len(sys.argv) != 2:
 	sys.exit("Use: python build_graph.py <dataset>")
@@ -407,7 +407,7 @@ for window in windows:
         appeared.add(window[i])
 
 word_pair_count = {}
-for window in windows:
+for window in tqdm(windows):
     for i in range(1, len(window)):
         for j in range(0, i):
             word_i = window[i]
